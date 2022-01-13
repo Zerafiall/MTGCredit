@@ -1,15 +1,17 @@
 <?php
 
-$dbServer = 'db';
-$dbUsername = 'root';
-$dbPasswd = 'DEcaLbcqMoGLbfj7';
-$dbName = 'mtgcredit';
+$servername = "db";
+$username = "root";
+$password = "DEcaLbcqMoGLbfj7";
 
-$conn = mysqli_connect($dbServer,
-                    $dbUsername,
-                    $dbPasswd,
-                    $dbName);
+// Create connection
+$conn = new mysqli($servername, $username, $password);
 
-if (!$conn) {
-    die("Connection failed: ".mysqli_connect_error());
-}
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+} 
+echo "Connected successfully";
+
+?>
+

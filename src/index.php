@@ -1,24 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
 <?php
-include_once 'includes/dbc.php';
+    include_once 'includes/dbc.php'
 ?>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>MTGCredit</h1>
 
-<?php
-echo "MTG Credit App";
+    <?php
+    
+    $DevPlayerID = 5
+    
+    ?>
 
-# $mysqli = new mysqli("db", "root", "DEcaLbcqMoGLbfj7", "mtgcredit");
+    <p>New Player:</p>
+    <form method="POST" action="newPlayer.php">
+        <label>First Name</label>
+        <input type="text"
+            id="FirstName"
+            placeholder="First Name">
+        </input>
+        <br>
+        <label>Last Name</label>
+        <input type="text"
+            id="LastName"
+            placeholder="Last Name">
+        </input>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+    <br>
 
-$sql = 'SELECT * FROM Players';
 
-if ( $result = $conn->query( $sql )) {
-    while ( $data = $result->fetch_object() ) {
-        $Players[] = $data;
-    }
-}
+    <!-- Search Field-->
 
-foreach ($Players as $Player) {
-    echo "<br>";
-    echo $Player->FirstName ;
-    echo "<br>";
-}
+    <form action="Search.php" type="text">
+        <label for="Search">Search</label>
+        <input type="text" 
+            id="SearchField" 
+            name="SearchField" 
+            placeholder="dan">
+        <input type="Submit" value="Submit">
+    </form>
 
-?>
+
+</body>
+</html>
