@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  php:
+    build:
+      context: . 
+      dockerfile: Dockerfile 
+    container_name: mtgcredit-php
+    restart: unless-stopped
+    ports:
+     - 80:80
+    volumes:
+      - ./src:/var/www/html/
+
+  db:
+    user: "${UID}:${GID}"
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped 
+    environment:
+      MYSQL_ROOT_PASSWORD: DEcaLbcqMoGLbfj7
+    volumes:
+     - ./mysql:/var/lib/mysql
+    working_dir: /app 
+
+  adminer:
+    image: adminer
+    restart: unless-stopped 
+    ports:
+      - 8080:8080
