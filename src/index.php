@@ -19,7 +19,7 @@
     ?>
 
     <p>New Player:</p>
-    <form action="newPlayer.php" method="POST" >
+    <form action="includes/newPlayer.php" method="POST" >
         <label>First Name</label>
         <input type="text"
             name="FirstName"
