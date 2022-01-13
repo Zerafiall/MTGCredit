@@ -13,22 +13,22 @@
     <h1>MTGCredit</h1>
 
     <?php
-    
+
     $DevPlayerID = 5
     
     ?>
 
     <p>New Player:</p>
-    <form method="POST" action="newPlayer.php">
+    <form action="newPlayer.php" method="POST" >
         <label>First Name</label>
         <input type="text"
-            id="FirstName"
+            name="FirstName"
             placeholder="First Name">
         </input>
         <br>
         <label>Last Name</label>
         <input type="text"
-            id="LastName"
+            name="LastName"
             placeholder="Last Name">
         </input>
         <br>

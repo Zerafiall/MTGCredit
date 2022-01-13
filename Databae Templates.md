@@ -16,13 +16,15 @@ CREATE TABLE `Transactions` (
   `TransID` int NOT NULL AUTO_INCREMENT,
   `PlayerID` int NOT NULL,
   `Amount` decimal(16,2) NOT NULL,
+  `Date` date NOT NULL,
+  `Comment` varchar(200) NOT NULL,
   PRIMARY KEY (`TransID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
 ## Functions
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `GetBalance`( 
-	In PLayerIDInput int, 
+	In PlayerIDInput int, 
 	OUT BalanceForPlayer decimal(32,2))
 BEGIN
 	Select Balance
@@ -62,7 +64,8 @@ END
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `NewTransaction`( 
 	IN Player int, 
-    IN TransDelta decimal(16,2))
+    IN TransDelta decimal(16,2),
+    IN NewComment varchar(200))
 BEGIN
 	-- Get old balance
     Select Balance
@@ -79,15 +82,16 @@ BEGIN
     Where PlayerID = Player;
     
     -- Append Transaction Table
-	INSERT INTO Transactions (PlayerID, Amount) VALUES (Player, TransDelta);
+	INSERT INTO Transactions (PlayerID, Amount, Date, Comment) VALUES (Player, TransDelta, date, NewComment);
 END
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SetBalance`( 
     thisPlayerID int, 
-    thisAmount decimal(16,2))
+    thisAmount decimal(16,2),
+    NewComment varchar(200))
 BEGIN
-	INSERT INTO transactions (PlayerID, Amount) 
-    VALUES (thisPlayerID , thisAmount);
+	INSERT INTO transactions (PlayerID, Amount, Comment) 
+    VALUES (thisPlayerID , thisAmount, NewComment);
 END
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SearchForPlayer`( 

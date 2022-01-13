@@ -1,11 +1,11 @@
 <?php
 
-$servername = "db";
-$username = "root";
-$password = "DEcaLbcqMoGLbfj7";
+$servername = 'db';
+$username = 'root';
+$password = 'DEcaLbcqMoGLbfj7';
 
 // Create connection
-$conn = new mysqli($servername, $username, $password);
+$conn = mysqli_connect($servername, $username, $password);
 
 // Check connection
 if ($conn->connect_error) {
