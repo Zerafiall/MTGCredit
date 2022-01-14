@@ -41,16 +41,18 @@
     }
     ?>
 
-<!-- Search Field-->
-    <!-- 
-    <form action="includes/search.php" type="text">
+    <form method="POST">
         <label for="Search">Search</label>
         <input type="text" 
-            name="seatchTerm" 
+            name="SearchTerm" 
             placeholder="Search...">
         <input type="Submit" value="Submit">
     </form>
-    -->
-
+    <?php 
+    if(isset($_POST['SearchTerm'])){
+        $searchTerm = $_POST['SearchTerm'];
+        searchForPlayer($searchTerm);
+    }
+    ?>
 </body>
 </html>
