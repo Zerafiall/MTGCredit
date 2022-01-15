@@ -13,20 +13,18 @@
 <body>
     <h1>MTGCredit</h1>
 
+    <!-- New Player --> 
     <p>New Player:</p>
     <form  method="POST" >
-        <label>First Name</label>
         <input type="text"
             name="FirstName"
             placeholder="First Name">
         </input>
         <br>
-        <label>Last Name</label>
         <input type="text"
             name="LastName"
             placeholder="Last Name">
         </input>
-        <br>
         <input type="submit" value="Submit">
     </form>
     <br>
@@ -41,18 +39,20 @@
     }
     ?>
 
+    <!-- Search for player --> 
     <form method="POST">
-        <label for="Search">Search</label>
         <input type="text" 
             name="SearchTerm" 
             placeholder="Search...">
         <input type="Submit" value="Submit">
     </form>
+
     <?php 
     if(isset($_POST['SearchTerm'])){
         $searchTerm = $_POST['SearchTerm'];
         searchForPlayer($searchTerm);
     }
     ?>
+    
 </body>
 </html>
