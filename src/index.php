@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-    # include_once 'includes/dbc.php';
     include_once 'includes/functions.php';
 ?>
 <head>
@@ -11,8 +10,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>MTGCredit</h1>
-
+    <a href=""> <h1>MTGCredit</h1> </a>
     <!-- New Player --> 
     <p>New Player:</p>
     <form  method="POST" >
@@ -53,6 +51,29 @@
         searchForPlayer($searchTerm);
     }
     ?>
-    
+
+    <form mothod="POST">
+        <input type="number"
+            name="TransAmount"
+            placeholder="Change Amount">
+        <br>
+        <input type="text"
+            name="Comment"
+            placeholder="Comment">
+        <input type="Submit" value="Submit">
+    </form>
+
+    <?php
+    $selectedPlayer ;
+    if(isset($_POST['TransAmmount'])){
+        if(isset($_POST['Comment'])){
+            $playerID = $selectedPlayer;
+            $transAmount = $_POST['TransAmmount'];
+            $comment = $_POST['Comment'];
+            newTransaction($playerID, $transAmount, $comment);
+        }
+    }
+    ?>
+
 </body>
 </html>
