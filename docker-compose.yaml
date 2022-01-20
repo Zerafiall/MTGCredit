@@ -13,7 +13,6 @@ services:
       - ./src:/var/www/html/
 
   db:
-#    user: "${UID}:${GID}"
     image: mysql
     container_name: mtgcredit-db
     command: --default-authentication-plugin=mysql_native_password

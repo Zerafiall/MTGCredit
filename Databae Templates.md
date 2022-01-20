@@ -106,3 +106,82 @@ BEGIN
 	WHERE concat(FirstName, ' ', LastName) REGEXP (SearchTerm)
     LIMIT 1;
 END
+
+--- DELIMITER $$
+CREATE DEFINER=`root`@`%` PROCEDURE `GetBalance`(IN `PLayerIDInput` int, OUT `BalanceForPlayer` decimal)
+Select Balance
+    into BalanceForPlayer
+    From Players 
+    Where PlayerID = PlayerIDInput$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`%` PROCEDURE `GetHistory5`(IN `PlayerIDInput` int)
+Select *
+    FROM Transactions 
+    Where PlayerID = PlayerIDInput
+    Order By TransID Desc
+    Limit 5$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`%` PROCEDURE `GetHistoryX`(IN `PlayerIDInput` int, IN `Backwards` int)
+Select *
+    FROM Transactions 
+    Where PlayerID = PlayerIDInput
+    Order By TransID Desc
+    Limit 5$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`%` PROCEDURE `NewPlayer`(IN `newFirstName` varchar(32), IN `newLastName` varchar(32))
+INSERT INTO Players (FirstName, LastName) VALUES (newFirstName, newLastName)$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `NewTransaction`( 
+	IN Player int, 
+    IN TransDelta decimal(16,2),
+    IN Comment varchar(32))
+BEGIN
+	-- Get old balance
+    Select Balance
+    INTO @CurBal
+	From Players 
+    Where PlayerID = Player;
+	
+    -- Do math
+    SET @NewBal = @CurBal + TransDelta;
+    
+    -- Update Players Table 
+    UPDATE Players
+    Set Balance = @NewBal
+    Where PlayerID = Player;
+    
+    -- Append Transaction Table
+	INSERT INTO Transactions (PlayerID, Amount, DATE, Comment) VALUES (Player, TransDelta, curdate(), Comment);
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SearchForPlayer`( 
+	SearchTerm nvarchar(32),
+    OUT PlayerRecivedID INT)
+BEGIN    
+	SET @term = concat('%',@SearchTerm,'%');
+    
+    SELECT PlayerID
+    INTO PlayerRecivedID
+    FROM Players 
+	WHERE concat(FirstName, ' ', LastName) REGEXP (SearchTerm)
+    LIMIT 1;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`%` PROCEDURE `SetBalance`(IN `thisPlayerID` int, IN `thisAmount` decimal)
+BEGIN
+	INSERT INTO transactions (PlayerID, Amount) 
+    VALUES (thisPlayerID , thisAmount);
+END$$
+DELIMITER ;
