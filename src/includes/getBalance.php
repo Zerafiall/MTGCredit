@@ -3,7 +3,7 @@
     include_once 'dbc.php';
 
 function getBalance($playerID){
-    echo "Getting ballance... " . "<br>";
+    echo "Player Balance: ";
     global $conn;
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
@@ -17,7 +17,7 @@ function getBalance($playerID){
     $results = $conn -> query ("SELECT @BalanceForPlayer as _GetBalance_out");
     $result = $results -> fetch_assoc();
 
-    echo "$". $result['_GetBalance_out'];
+    echo "$<b>". $result['_GetBalance_out']."</b>";
 
     $stmt -> close();
 }

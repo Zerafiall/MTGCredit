@@ -2,7 +2,7 @@
     include_once 'dbc.php';
  
 function getHistory5($playerID){
-    echo "Getting history..." . "<br>";
+    echo "Last 5 Transactions: " . "<br><br>";
     global $conn;
 
     $stmt = $conn->prepare("call mtgcredit.GetHistory5(?);");
@@ -15,6 +15,7 @@ function getHistory5($playerID){
         // output data of each row
         while($row = $result->fetch_assoc()){
             echo $row['Amount'].' '.$row['Date'].' '.$row['Comment'] . "<br>";
+            echo "<br>";
           }
     } else {
         echo "0 results";

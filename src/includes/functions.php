@@ -10,3 +10,4 @@
     include_once 'functions.php';
     include_once 'getPlayerName.php';
     include_once 'showPlayerDetails.php';
+

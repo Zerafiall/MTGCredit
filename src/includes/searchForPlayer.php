@@ -1,5 +1,4 @@
 <?php
-    include_once 'dbc.php';
     include_once 'functions.php';
 
 function searchForPlayer($searchTerm) {
@@ -22,19 +21,13 @@ function searchForPlayer($searchTerm) {
     $results = $conn -> query ("SELECT @PlayerRecivedID as  _SearchForPlayer_out");
     $result = $results->fetch_assoc();
 
-    // if (empty($searchForPlayer)){
-    //     echo "No player with that name";
-    // }
+    if (empty($result['_SearchForPlayer_out'])){
+        echo "No player with that name";
+    }
 
-    // echo $result['_SearchForPlayer_out'] ;
     $output = $result['_SearchForPlayer_out'];
-    echo "<br>";
-
-    // echo $output;
-
-    global $selectedPlayer;
-    $selectedPlayer = $output;
+    session_start();
+    $_SESSION['currentPlayer'] = $output;
     showPlayerDetails($output);
-
     $searchForPlayer->close();
 }

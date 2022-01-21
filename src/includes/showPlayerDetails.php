@@ -6,10 +6,9 @@ include_once 'functions.php';
 function showPlayerDetails($playerID) {
     global $conn ;
     echo "<br>";
-    getPlayerName($playerId);
+    getPlayerName($playerID);
     echo "<br>";
     getBalance($playerID);
     echo "<br>";
     getHistory5($playerID);
-
 }

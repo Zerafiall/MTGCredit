@@ -107,7 +107,9 @@ BEGIN
     LIMIT 1;
 END
 
---- DELIMITER $$
+--- 
+
+DELIMITER $$
 CREATE DEFINER=`root`@`%` PROCEDURE `GetBalance`(IN `PLayerIDInput` int, OUT `BalanceForPlayer` decimal)
 Select Balance
     into BalanceForPlayer
