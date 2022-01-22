@@ -1,28 +1,13 @@
 <?php
-    include_once 'dbc.php';
-    include_once 'functions.php';
+session_start();
+include_once 'functions.php';
 
-function newPlayer($firstName, $lastName) {
-    // Check connection
-    
-    global $conn;
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    } 
-    // Prepare statement. Pass func variables to statement. Execute Statement.   
-    $newPlayer = $conn->prepare("call mtgcredit.NewPlayer(?, ?);");
-    $newPlayer->bind_param("ss", $first_Name, $last_Name);
-    $first_Name = $firstName;
-    $last_Name = $lastName;
-    $newPlayer->execute();
-
-    // Echo out sucsess
-
-    $newPlayerString = $firstName . " " . $lastName;
-    searchForPlayer($newPlayerString);
-
-    echo "<br>";
-    echo "New player " . $firstName . " added.";
-    echo "<br>"; 
-    $newPlayer->close();
+if (!isset($_POST["submit"])) {
+    header('location: ../index.php?error=funcNewPlayerNotCalled');
+} else {
+    // Error handling goers here
+    $firstName = $_POST['FirstName'];
+    $lastName = $_POST['LastName'];
+    newPlayer($firstName, $lastName);
 }
+

@@ -11,30 +11,29 @@
 </head>
 <body>
     <a href="index.php?error=welcomeHome"> <h1>MTGCredit</h1> </a>
-   
+
     <!-- Search for player --> 
     <form action="includes/searchForPlayer.php" method="post">
         <input type="text" name="searchTerm" placeholder="Search...">
         <button type="submit" name="submit">Search</button>
     </form>
-    
+        <br> 
     <!-- Show Selected Player -->
     <?php
     if (!isset($_SESSION['currentPlayer'])){
         echo "No player selected";
     } else {
-        $currentPlayer = $_SESSION['currentPlayer'];
-        echo  $currentPlayer ;
+        // echo " <a href='includes/clear.php' >Clear</a>";
+        include_once 'html/showPlayerDetails.php';
         include_once 'html/newTransaction.php';
     }        
     ?>
     
     
 
-    <!-- 
-    New Player 
+<!-- New Player -->  
     <p>New Player:</p>
-    <form action="includes/newPlayer.php" method="POST">
+    <form action="includes/newPlayer.php" method="post">
         <input type="text"
             name="FirstName"
             placeholder="First Name">
@@ -44,20 +43,9 @@
             name="LastName"
             placeholder="Last Name">
         </input>
-        <input type="submit" value="Submit">
+        <button type="submit" name="submit">Submit</button>
     </form>
     <br>
  
-    <?php 
-    // if(isset($_POST['FirstName'])){
-    //     if(isset($_POST['LastName'])){
-    //         $fisrtName = $_POST['FirstName'];
-    //         $lastName = $_POST['LastName'];
-    //         newPlayer($fisrtName, $lastName);
-    //     }
-    // }
-    ?> 
-    -->
-
 </body>
 </html>
