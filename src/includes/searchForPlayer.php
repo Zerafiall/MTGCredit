@@ -1,20 +1,23 @@
 <?php
-    include_once 'functions.php';
+session_start();
+if (!isset($_POST["submit"])) {
+    header('location: ../index.php?error=funcSearchNotCalled');
+} else {
+   
+    include_once 'dbc.php';
 
-function searchForPlayer($searchTerm) {
-    // Check connection
     global $conn;
     if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+        header('location: index.php?error=connFailed');
     }
 
     // Set up prepared statements and paramaters.
     $searchForPlayer = $conn->prepare('call mtgcredit.SearchForPlayer(?, @PlayerRecivedID);');
-    $searchForPlayer->bind_param("s", $search_Term);
-    $search_Term = $searchTerm;
-    
-    // Send the query to the database. 
+    $searchForPlayer->bind_param("s", $searchTerm);
     $conn -> query('call SearchForPlayer( "$searchTerm" , @PlayerRecivedID);');
+
+    // Send the query to the database. 
+    $searchTerm = $_POST['searchTerm'];
     $searchForPlayer->execute();
 
     // Query for the new set that is the output of the previouse query
@@ -22,12 +25,13 @@ function searchForPlayer($searchTerm) {
     $result = $results->fetch_assoc();
 
     if (empty($result['_SearchForPlayer_out'])){
-        echo "No player with that name";
-    }
-
-    $output = $result['_SearchForPlayer_out'];
-    session_start();
-    $_SESSION['currentPlayer'] = $output;
-    showPlayerDetails($output);
-    $searchForPlayer->close();
-}
+        $_SESSION['currentPlayer'] = null;
+        header('location: ../index.php?error=playerNotFound');
+        $searchForPlayer->close();
+    } else {
+        $output = $result['_SearchForPlayer_out'];
+        $_SESSION['currentPlayer'] = $output;
+        header('location: ../index.php?error=searchSuccess');
+        $searchForPlayer->close();
+    } 
+} 

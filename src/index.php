@@ -1,6 +1,5 @@
 <?php
     session_start();
-    include_once 'includes/functions.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,57 +10,31 @@
     <title>Document</title>
 </head>
 <body>
-    <a href=""> <h1>MTGCredit</h1> </a>
-
-<?php
+    <a href="index.php?error=welcomeHome"> <h1>MTGCredit</h1> </a>
+   
+    <!-- Search for player --> 
+    <form action="includes/searchForPlayer.php" method="post">
+        <input type="text" name="searchTerm" placeholder="Search...">
+        <button type="submit" name="submit">Search</button>
+    </form>
+    
+    <!-- Show Selected Player -->
+    <?php
     if (!isset($_SESSION['currentPlayer'])){
         echo "No player selected";
     } else {
-        echo "Selected player: " . $_SESSION['currentPlayer'];
-    }
-?>
-
-    <!-- Search for player --> 
-    <form method="POST">
-        <input type="text" 
-            name="SearchTerm" 
-            placeholder="Search...">
-        <input type="Submit" value="Submit">
-    </form>
-
-    <?php 
-    if(isset($_POST['SearchTerm'])){
-        $searchTerm = $_POST['SearchTerm'];
-        searchForPlayer($searchTerm);
-    }
+        $currentPlayer = $_SESSION['currentPlayer'];
+        echo  $currentPlayer ;
+        include_once 'html/newTransaction.php';
+    }        
     ?>
+    
+    
 
-    <form method="POST">
-        <input type="number"
-            step="0.01"
-            name="TransAmount"
-            placeholder="Change Amount">
-        <br>
-        <input type="text"
-            name="Comment"
-            placeholder="Comment">
-        <input type="Submit" value="Submit">
-    </form>
-
-    <?php
-    if(isset($_POST['TransAmount'])){
-        if(isset($_POST['Comment'])){
-                $playerID = $_SESSION['currentPlayer'];
-                $transAmount = $_POST['TransAmount'];
-                $comment = $_POST['Comment'];
-                newTransaction($playerID, $transAmount, $comment);
-        }
-    }
-    ?>
-
-    <!-- New Player --> 
+    <!-- 
+    New Player 
     <p>New Player:</p>
-    <form  method="POST" >
+    <form action="includes/newPlayer.php" method="POST">
         <input type="text"
             name="FirstName"
             placeholder="First Name">
@@ -76,13 +49,15 @@
     <br>
  
     <?php 
-    if(isset($_POST['FirstName'])){
-        if(isset($_POST['LastName'])){
-            $fisrtName = $_POST['FirstName'];
-            $lastName = $_POST['LastName'];
-            newPlayer($fisrtName, $lastName);
-        }
-    }
-    ?>
+    // if(isset($_POST['FirstName'])){
+    //     if(isset($_POST['LastName'])){
+    //         $fisrtName = $_POST['FirstName'];
+    //         $lastName = $_POST['LastName'];
+    //         newPlayer($fisrtName, $lastName);
+    //     }
+    // }
+    ?> 
+    -->
+
 </body>
 </html>

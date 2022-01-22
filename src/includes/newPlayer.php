@@ -1,6 +1,7 @@
 <?php
     include_once 'dbc.php';
- 
+    include_once 'functions.php';
+
 function newPlayer($firstName, $lastName) {
     // Check connection
     
@@ -16,6 +17,10 @@ function newPlayer($firstName, $lastName) {
     $newPlayer->execute();
 
     // Echo out sucsess
+
+    $newPlayerString = $firstName . " " . $lastName;
+    searchForPlayer($newPlayerString);
+
     echo "<br>";
     echo "New player " . $firstName . " added.";
     echo "<br>"; 

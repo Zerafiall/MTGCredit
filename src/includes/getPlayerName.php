@@ -22,7 +22,7 @@ function getPlayerName($playerID){
     $result = $stmt->get_result();
     if ($result->num_rows > 0){
         if ($row = $result->fetch_assoc()){
-            echo "PlayerName: " . $row['FirstName'] . $row['lastname'];
+            echo "PlayerName: " . $row['FirstName'] . " " . $row['LastName'];
         } else {
             echo "Oops.";
         }

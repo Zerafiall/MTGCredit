@@ -1,19 +1,23 @@
 <?php
+session_start();
+if( !isset($_POST["submit"])) {
+    header('location: ../index.php?error=funcNotCalled');
+} else {
     include_once 'dbc.php';
-    include_once 'functions.php';
 
-function newTransaction( $playerID , $transDelta , $comment) {
     global $conn;
+    if ($conn->connect_error) {
+        header('location: index.php?error=connFailed');
+    }
 
     $stmt = $conn -> prepare("call mtgcredit.NewTransaction(?, ?, ?);
     ;");
-    $stmt -> bind_param("ids", $ID, $Amount, $this_comment);
-    $ID = $playerID;
-    $Amount = $transDelta;
-    $this_comment = $comment;
-    $stmt -> execute();
+    $stmt -> bind_param("ids", $id, $amount, $comment);
+    $id = $_SESSION['currentPlayer'];
+    $amount = $_POST['transAmount'];
+    $comment = $_POST['comment'];
 
-    showPlayerDetails($playerID);
-    echo "Change made: " . $Amount . " for player " . $playerID ;
+    $stmt -> execute();
     $stmt -> close();
+    header('location: ../index.php?error=transSucsess');
 }
