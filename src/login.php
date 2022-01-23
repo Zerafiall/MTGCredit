@@ -25,19 +25,5 @@ echo "Env: " . $_ENV['MYSQL_ROOT_PASSWORD'];
         <button type="submit" name="submit">Submit</button>
     </form>
 
-    <form action="includes/signup-inc.php" method="post">
-        <input type="text"
-                name="username"
-                placeholder="username">
-        </input>
-        <br>
-        <input type="text"
-                name="password"
-                placeholder="password">
-        </input>
-        <br>
-        <button type="submit" name="submit">Submit</button>
-    </form>
-
-</body>
+    </body>
 </html>

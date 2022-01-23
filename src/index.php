@@ -16,24 +16,23 @@ if ( !isset($_SESSION['usersID'])){
 <body>
     <a href="index.php?error=welcomeHome"> <h1>MTGCredit</h1> </a>
     <a href="includes/clear.php">Exit</a>
+
     <!-- Search for player --> 
     <form action="includes/searchForPlayer.php" method="post">
         <input type="text" name="searchTerm" placeholder="Search...">
         <button type="submit" name="submit">Search</button>
     </form>
-        <br> 
+    <br> 
+
     <!-- Show Selected Player -->
     <?php
-    if (!isset($_SESSION['currentPlayer'])){
-        echo "No player selected";
-    } else {
-        // echo " <a href='includes/clear.php' >Clear</a>";
-        include_once 'html/showPlayerDetails.php';
-        include_once 'html/newTransaction.php';
-    }        
+        if (!isset($_SESSION['currentPlayer'])){
+            echo "No player selected";
+        } else {
+            include_once 'html/showPlayerDetails.php';
+            include_once 'html/newTransaction.php';
+        }        
     ?>
-    
-    
 
 <!-- New Player -->  
     <p>New Player:</p>
@@ -50,6 +49,6 @@ if ( !isset($_SESSION['usersID'])){
         <button type="submit" name="submit">Submit</button>
     </form>
     <br>
- 
 </body>
 </html>
+

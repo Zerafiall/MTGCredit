@@ -17,12 +17,16 @@ Copy the .env-example to .env. Then add a database password to the new .env file
 3. Inport Database Tables and Procedures
 
 `docker exec -it mtgcredit-db bash`
+
 `mysql mysql -u root -p`
+
 `CREATE DATABASE mtgcredit;`
+
 `mysql -u root -p mtgcredit < Docs/MTGCredit-Templates.sql `
 
 4. Set up counter username and password
 
+`docker exec -it mtgcredit-php bash /usr/local/bin/php /var/www/html/newuser.php [dbpassword] [newUserName] [newPaswword]`
 
 ## Backup Database
 

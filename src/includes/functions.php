@@ -150,16 +150,6 @@ function emptyInputLogin($username, $password){
     return $result;
 }
 
-function createUser($username, $password){
-    global $conn;
-    $stmt = $conn -> prepare("call mtgcredit.createUser( ?, ?);");
-    $stmt->bind_param("ss", $username, $hashedPassword);
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-    $stmt -> execute();
-    $stmt -> close();
-    header('location: ../login.php?error=createUserSucsess');
-}
-
 function loginUser($username, $password){
     $uidExists = uidExists($username);
     if ( $uidExists == false ) {
