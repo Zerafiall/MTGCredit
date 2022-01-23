@@ -69,3 +69,25 @@ Functions
         SetSessionToID( $playerID );
 
     }
+
+## Callbacks
+if(isset($_GET['error'])){
+if($_GET['error']== errorMsgGoesHere ) {
+echo " <p> Error Message </p>] ";
+}
+}
+
+## Erro Handling 
+
+if ( $stmt = $conn -> prepare (" ") == false ) {
+    throw error 
+}
+
+## Log in systen 
+
+if $_Cookie not set {
+    Header -> src/login.php
+
+    } else {
+    stay at index.php
+    }

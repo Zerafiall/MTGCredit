@@ -4,9 +4,6 @@
 function getBalance($playerID){
     echo "Player Balance: ";
     global $conn;
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
     $stmt = $conn->prepare(" call mtgcredit.GetBalance(?, @BalanceForPlayer);");
     $stmt -> bind_param ( "i" , $player_ID);
     $player_ID = $playerID;
@@ -45,10 +42,7 @@ function getHistory5($playerID){
 
 function getHistoryX($playerID){
     global $conn;
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
+    
     // Set up prepared statements and paramaters.
     $stmt = $conn->prepare(" call mtgcredit.QueryName ( ?, @OutputVar );");
     $stmt -> bind_param ( "input types" , $in_Var, $in_Var);
@@ -69,9 +63,6 @@ function getHistoryX($playerID){
 function getPlayerName($playerID){
     
     global $conn;
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
 
     // Set up prepared statements and paramaters.
     $stmt = $conn->prepare("call mtgcredit.GetPlayerName(?);");
@@ -99,9 +90,7 @@ function newPlayer($firstName, $lastName) {
     // Check connection
     
     global $conn;
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    } 
+     
     // Prepare statement. Pass func variables to statement. Execute Statement.   
     $newPlayer = $conn->prepare("call mtgcredit.NewPlayer(?, ?);");
     $newPlayer->bind_param("ss", $firstName, $lastName);
@@ -113,12 +102,8 @@ function newPlayer($firstName, $lastName) {
 
 function newTransaction($id, $amount, $comment){
     global $conn;
-    if ($conn->connect_error) {
-        header('location: index.php?error=connFailed');
-    }
-
-    $stmt = $conn -> prepare("call mtgcredit.NewTransaction(?, ?, ?);
-    ;");
+    
+    $stmt = $conn -> prepare("call mtgcredit.NewTransaction(?, ?, ?);");
     $stmt -> bind_param("ids", $id, $amount, $comment);
     $id = $_SESSION['currentPlayer'];
     $amount = $_POST['transAmount'];
@@ -131,17 +116,12 @@ function newTransaction($id, $amount, $comment){
 
 function serachForPlayer($searchTerm){
     global $conn;
-    if ($conn->connect_error) {
-        header('location: index.php?error=connFailed');
-    }
 
     // Set up prepared statements and paramaters.
     $searchForPlayer = $conn->prepare('call mtgcredit.SearchForPlayer(?, @PlayerRecivedID);');
     $searchForPlayer->bind_param("s", $searchTerm);
     $conn -> query('call SearchForPlayer( $searchTerm , @PlayerRecivedID);');
-
     // Send the query to the database. 
-//    $searchTerm = $_POST['searchTerm'];
     $searchForPlayer->execute();
 
     // Query for the new set that is the output of the previouse query
@@ -158,4 +138,60 @@ function serachForPlayer($searchTerm){
         header('location: ../index.php?error=searchSuccess');
         $searchForPlayer->close();
     } 
+}
+
+function emptyInputLogin($username, $password){
+    $result;
+    if ( empty($username) || empty($password) ){
+        $result == true;
+    } else {
+        $result == false;
+    }
+    return $result;
+}
+
+function createUser($username, $password){
+    global $conn;
+    $stmt = $conn -> prepare("call mtgcredit.createUser( ?, ?);");
+    $stmt->bind_param("ss", $username, $hashedPassword);
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $stmt -> execute();
+    $stmt -> close();
+    header('location: ../login.php?error=createUserSucsess');
+}
+
+function loginUser($username, $password){
+    $uidExists = uidExists($username);
+    if ( $uidExists == false ) {
+        header('location: ../login.php?error=invaladCreds');
+        exit();
+    }
+    $passwordHashed = $uidExists['usersPWD'];
+    $checkPassword = password_verify( $password, $passwordHashed );
+    if ($checkPassword == false ){
+        header('location: ../login.php?error=invaladCreds');
+        exit();
+    } else if ($checkPassword == true ){
+        session_start();
+        $_SESSION['usersID'] = $uidExists['usersID']; 
+        header('location: ../index.php?error=welcomeHome');
+    }
+}
+
+function uidExists($username){
+    global $conn;
+    $results;
+    $stmt = $conn -> prepare("call mtgcredit.loginUser(?);");
+    $stmt->bind_param('s', $username);
+    $stmt -> execute();
+    $result = $stmt -> get_result();
+    if ($result -> num_rows > 0 ){
+        if ($row = $result -> fetch_assoc()){
+            return $row;
+        } else {
+            $results = false;
+            return $results;
+        }
+    }
+    $conn -> close();
 }

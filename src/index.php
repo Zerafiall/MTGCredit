@@ -1,5 +1,9 @@
 <?php
-    session_start();
+session_start();
+if ( !isset($_SESSION['usersID'])){
+    header('location: login.php?error=pleaseLogIn');
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
