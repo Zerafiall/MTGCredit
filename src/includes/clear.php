@@ -1,4 +1,6 @@
 <?php
-session_start();  // calling session start first on destroyed.php
+session_start();
+session_unset();
+session_destroy();
+header('location: ../index.php?error=loggedOut');
 
-header('location: ../index.php?error=none');

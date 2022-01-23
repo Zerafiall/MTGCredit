@@ -15,7 +15,7 @@ if ( !isset($_SESSION['usersID'])){
 </head>
 <body>
     <a href="index.php?error=welcomeHome"> <h1>MTGCredit</h1> </a>
-
+    <a href="includes/clear.php">Exit</a>
     <!-- Search for player --> 
     <form action="includes/searchForPlayer.php" method="post">
         <input type="text" name="searchTerm" placeholder="Search...">
