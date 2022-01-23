@@ -1,3 +1,6 @@
+# To backup Database, run 
+docker exec mtgcredit-db bash backupDB.sh
+
 set up from: 
     https://www.youtube.com/watch?v=ThpnqYpvnIM
 
