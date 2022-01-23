@@ -2,10 +2,10 @@
 
 $servername = 'db';
 $username = 'root';
-$password = ' '; # Password for database goes here. Use .env file to store password.
+$password = getenv("MYSQL_ROOT_PASSWORD");
+
 // Create connection
 $conn = mysqli_connect($servername, $username, $password );
-
 
 // Check connection
 if ($conn->connect_error) {

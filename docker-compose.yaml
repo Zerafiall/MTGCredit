@@ -11,6 +11,9 @@ services:
      - 80:80
     volumes:
       - ./src:/var/www/html/
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+
 
   db:
     image: mysql

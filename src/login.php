@@ -1,3 +1,7 @@
+<?php
+echo "Env: " . $_ENV['MYSQL_ROOT_PASSWORD'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
