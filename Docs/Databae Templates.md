@@ -1,7 +1,6 @@
-# Database
+-- Database creation for MTGCredit
 
-## Create Table
-
+-- Create Table
 
 CREATE TABLE `Players` (
   `PlayerID` int NOT NULL AUTO_INCREMENT,
@@ -30,9 +29,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 O
 
-
-
-## Functions
+-- Functions
 DELIMITER $$
 CREATE DEFINER=`root`@`%` PROCEDURE `createUser`(
 userUID varchar(45),
