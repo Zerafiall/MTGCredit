@@ -1,3 +1,9 @@
 mysql/
 .env
 .DS_Store
+Docs/certs/oconnordaniel.com.pem
+Docs/certs/oconnordaniel.com.key
+Docs/certs/oconnordaniel.com.crt
+Docs/certs/CloudFlare Cert - Cert and PrivKey.md
+apache-ssl/tpm-ssl-key.key
+apache-ssl/tpm-ssl-cert.crt
