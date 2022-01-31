@@ -2,18 +2,16 @@
     include_once 'dbc.php';
 
 function getBalance($playerID){
-    echo "Player Balance: ";
+    echo "Balance: ";
     global $conn;
-    $stmt = $conn->prepare(" call mtgcredit.GetBalance(?, @BalanceForPlayer);");
-    $stmt -> bind_param ( "i" , $player_ID);
-    $player_ID = $playerID;
-
+    $stmt = $conn->prepare("call mtgcredit.GetBalance(?, @BalanceForPlayer);");
+    $stmt -> bind_param ( "i" , $playerID);
     $stmt -> execute();
 
     $results = $conn -> query ("SELECT @BalanceForPlayer as _GetBalance_out");
     $result = $results -> fetch_assoc();
 
-    echo "$<b>". $result['_GetBalance_out']."</b>";
+    echo '<strong> $'.$result['_GetBalance_out']."</strong>";
 
     $stmt -> close();
 }
@@ -31,21 +29,20 @@ function getHistory5($playerID){
     if ($result->num_rows > 0) {
         // output data of each row
         while($row = $result->fetch_assoc()){
-            echo ' ';
             
-            echo ' <div class="row"> ';
+            echo '<div class="row">';
 
             echo 
                 '<div class="col">'.
                 $row['Comment'].
-                '</div><div class="col">'.
+                '</div>
+                <div class="col">'.
                 $row['Date'].
-                '</div><div class="col">' .
+                '</div>
+                <div class="col text-end">$ ' .
                 $row['Amount'].
-                '</div>'; 
-
-            echo ' </div> ';
-        
+                '</div><div class="col"></div>'; 
+            echo '</div>';
         }
     } else {
         echo "0 results";
@@ -90,7 +87,7 @@ function getPlayerName($playerID){
     $result = $stmt->get_result();
     if ($result->num_rows > 0){
         if ($row = $result->fetch_assoc()){
-            echo "PlayerName: " . $row['FirstName'] . " " . $row['LastName'];
+            echo $row['FirstName'] . " " . $row['LastName'];
         } else {
             echo "Oops.";
         }
