@@ -4,7 +4,6 @@
     include_once 'includes/functions.php';
     $playerID = $_SESSION['currentPlayer'];
    
-    echo ' <div class="card-body"> ';
     
     echo ' <h5 class="card-title"> ';
     getPlayerName($playerID);
