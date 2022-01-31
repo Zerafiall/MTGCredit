@@ -45,7 +45,7 @@ if ( !isset($_SESSION['usersID'])){
                         placeholder="Search..."
                         class="form-control">
             </div>
-            <div class="col-md-2  p-1">
+            <div class="col-md-2 p-1">
                 <button type="submit" 
                         name="submit"
                         class="form-control">Search</button>
@@ -56,8 +56,10 @@ if ( !isset($_SESSION['usersID'])){
     <br> 
 
     <!-- Show Selected Player -->
-    <div class="container-md">
+    <div class="container-sm">
     <div class="card mx-auto">
+
+    <div class="card-body">
     <?php
         if (!isset($_SESSION['currentPlayer'])){
             echo "No player selected";
