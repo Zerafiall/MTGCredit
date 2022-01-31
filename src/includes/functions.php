@@ -19,7 +19,7 @@ function getBalance($playerID){
 }
 
 function getHistory5($playerID){
-    echo "Last 5 Transactions: " . "<br><br>";
+    echo "Last 5 Transactions: ";
     global $conn;
 
     $stmt = $conn->prepare("call mtgcredit.GetHistory5(?);");
@@ -31,9 +31,22 @@ function getHistory5($playerID){
     if ($result->num_rows > 0) {
         // output data of each row
         while($row = $result->fetch_assoc()){
-            echo $row['Amount'].' '.$row['Date'].' '.$row['Comment'] . "<br>";
-            echo "<br>";
-          }
+            echo ' ';
+            
+            echo ' <div class="row"> ';
+
+            echo 
+                '<div class="col">'.
+                $row['Comment'].
+                '</div><div class="col">'.
+                $row['Date'].
+                '</div><div class="col">' .
+                $row['Amount'].
+                '</div>'; 
+
+            echo ' </div> ';
+        
+        }
     } else {
         echo "0 results";
     }
