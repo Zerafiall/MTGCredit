@@ -1,9 +1,6 @@
 <?php
-<<<<<<< HEAD
 session_start();
-=======
 include_once 'includes/dbc.php';
->>>>>>> c5773d0466a8f99a87ced3bca3c87f664ba512ec
 ?>
 
 <!DOCTYPE html>

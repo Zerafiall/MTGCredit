@@ -2,7 +2,6 @@
     include_once 'dbc.php';
 
 function getBalance($playerID){
-    echo "Balance: ";
     global $conn;
     $stmt = $conn->prepare("call mtgcredit.GetBalance(?, @BalanceForPlayer);");
     $stmt -> bind_param ( "i" , $playerID);
@@ -11,7 +10,8 @@ function getBalance($playerID){
     $results = $conn -> query ("SELECT @BalanceForPlayer as _GetBalance_out");
     $result = $results -> fetch_assoc();
 
-    echo '<strong> $'.$result['_GetBalance_out']."</strong>";
+    echo 'Balance: <strong> $'.$result['_GetBalance_out']."</strong>";
+    
 
     $stmt -> close();
 }
@@ -97,16 +97,11 @@ function getPlayerName($playerID){
 }
 
 function newPlayer($firstName, $lastName) {
-    // Check connection
-    
     global $conn;
-     
-    // Prepare statement. Pass func variables to statement. Execute Statement.   
     $newPlayer = $conn->prepare("call mtgcredit.NewPlayer(?, ?);");
     $newPlayer->bind_param("ss", $firstName, $lastName);
     $newPlayer->execute();
     header('location: ../index.php?error=newPLayerSucsess');
-
     $newPlayer->close();
 }       
 
