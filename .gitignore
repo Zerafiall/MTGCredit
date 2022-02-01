@@ -1,4 +1,5 @@
 mysql/
+mysql-app/
 .env
 .DS_Store
 

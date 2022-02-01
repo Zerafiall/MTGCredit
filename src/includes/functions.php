@@ -36,7 +36,7 @@ function getHistory5($playerID){
                 '<div class="col">'.
                 $row['Comment'].
                 '</div>
-                <div class="col">'.
+                <div class="col text-end">'.
                 $row['Date'].
                 '</div>
                 <div class="col text-end">$ ' .

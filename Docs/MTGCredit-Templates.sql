@@ -6,7 +6,7 @@ CREATE TABLE `Players` (
   `PlayerID` int NOT NULL AUTO_INCREMENT,
   `FirstName` varchar(45) NOT NULL,
   `LastName` varchar(45) NOT NULL,
-  `Balance` varchar(45) NOT NULL DEFAULT '0',
+  `Balance` decimal(16,2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`PlayerID`),
   UNIQUE KEY `PlayerIDs_UNIQUE` (`PlayerID`),
   KEY `Players_firstandlast` (`FirstName`,`LastName`)
@@ -40,7 +40,7 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE DEFINER=`root`@`%` PROCEDURE `GetBalance`(IN `PLayerIDInput` int, OUT `BalanceForPlayer` decimal)
+CREATE DEFINER=`root`@`%` PROCEDURE `GetBalance`(IN `PLayerIDInput` int, OUT `BalanceForPlayer` decimal(16,2))
 Select Balance
     into BalanceForPlayer
     From Players 

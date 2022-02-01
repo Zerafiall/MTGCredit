@@ -15,16 +15,13 @@ if ( !isset($_SESSION['usersID'])){
     <title>MTG Credit</title>
 </head>
 
-
-
-
 <body>
 <!-- navbar-->
     <div class="navbar bg-dark">    
         <div class="container-md">
         <a class="navbar-brand" href="index.php?error=welcomeHome">
             <span class="fw-bold text-white">
-                MTGCredit
+            MTGCredit
             </span>
         </a>
         <a class="btn btn-outline-danger" href="includes/clear.php">
@@ -33,11 +30,31 @@ if ( !isset($_SESSION['usersID'])){
         </div>
     </div>
 
+<!-- Body  -->
 <div class="container-md">
-<!-- Search for player --> 
-    <br>
-    <div class="container">
 
+<!-- Errors --> 
+
+<?php
+if (isset($_GET['error'])){
+    if ($_GET['error'] == "newPLayerSucsess") {
+        echo '<br> <p class=" border border-success rounded-3 text-center ">Player added.</p>';
+    }
+    if ($_GET['error'] == "transSucsess") {
+        echo '<br> <p class=" border border-success rounded-3 text-center ">Trasaction added.</p>';
+    }
+    if ($_GET['error'] == "playerNotFound") {
+        echo '<br> <p class=" border border-danger rounded-3 text-center ">No player found matching that term.</p>';
+    }
+    if ($_GET['error'] == "emptyField") {
+        echo '<br> <p class=" border border-danger rounded-3 text-center ">Field left empty.</p>';
+    }
+}
+?>
+
+<!-- Search for player --> 
+<br>
+    <div class="container">
         <form action="includes/searchForPlayer.php" method="post"> 
         <div class="row">
             <div class="col-md-10 col-fluid p-1">
@@ -55,9 +72,9 @@ if ( !isset($_SESSION['usersID'])){
         </div>    
         </form>
     </div>
-    <br> 
 
 <!-- Show Selected Player -->
+<br> 
     <div class="container">
     <?php
         if (!isset($_SESSION['currentPlayer'])){

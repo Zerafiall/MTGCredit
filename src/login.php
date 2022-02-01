@@ -22,7 +22,7 @@ include_once 'includes/dbc.php';
         <input  type="text"
                 name="username"
                 placeholder="username"
-                class="form-control"
+                class="form-control">
         </input>
         <br>
         <input  type="password" 
