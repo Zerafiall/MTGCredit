@@ -42,3 +42,4 @@ TruthSeekers for setting up docker containers:
 Danni K for teaching enought PHP to build this: 
     https://www.youtube.com/watch?v=gCo6JqGMi30
 
+ "Revoked cert that made it's way into git histoy (oops)
